@@ -316,6 +316,16 @@ DriverInputPrev = Driver.Buttons
 'checks whether the automation shutdown event is to be triggered.
 Call AutomationShutdown(CDbl(dv.Distance), simulationtime, ControlMode, Freq)
 
+
+''-------
+'' This section's code may be uncommented to force the automation to abide the speed limit, this will hinder the driver from overriding
+'' the acc set speed parameters to velocities above the speed limit
+'If vTarget > CSng(dv.SpeedLimit) Then
+'    vTarget = CSng(dv.SpeedLimit)
+'End If
+''--------
+
+
 'This calls the traffic querying update function that queries the traffic and updates the position of the traffic objects.
 ' it takes the same arguments as the Update function of the OM_Module with an additional 'Max Range' parameter that determinesss
 ' how far ahead it considers traffic (currently set to 500ft)
@@ -448,7 +458,11 @@ Public Sub AutomationShutdown(position As Double, simulationtime As Long, CM As 
             TOR = 1
             TORCD = CDbl(simulationtime) / CDbl(Freq)
         ElseIf (CDbl(simulationtime) / CDbl(Freq)) > (TORCD + CDbl(arr(1))) And (CDbl(simulationtime) / CDbl(Freq)) < (TORCD + CDbl(arr(2))) Then
-            Call cancelAD
+            'vTarget = 0
+            'If vCurr = vTarget Then
+            '    Call cancelAD
+            'End If
+            Call cancelAD 'comment this away when uncommenting the above lines for a safe stop before disengaging AD
             TOR = 0
         End If
         
