@@ -1,0 +1,8 @@
+491519	Cycle time headway
+524159	Increase ACC speed
+524223	Decrease ACC Speed
+524283	Activate Adaptive Cruise Control
+524279	Activate Highly Automated Driving
+524286	Deactivate automated driving modes
+524255	Left lane change
+524271	Right lane change
